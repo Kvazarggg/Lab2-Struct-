@@ -1,0 +1,270 @@
+//ВАРИАНТ 3
+#include <iostream>
+#include <time.h>
+
+using namespace std;
+
+struct Date
+{
+	short day;
+	short month;
+	short year;
+};
+
+string getRandomSex()
+{
+	string Sex[] = { "Man", "Woman" };
+	return Sex[rand() % 2];
+}
+
+string getRandomCountry()
+{
+	string Country[] = { "Ukraine", "Russia", "Germany", "Poland", "Hungary", "Belarus", "Slovenia", "Latvia" };
+	return Country[rand() % Country->size()];
+}
+
+string getRandomRegion()
+{
+	string Region[] = { "Odessa", "Poltava","Nikolaev","Kiev","Lviv","Zhytomyr" ,"Chernigiv" };
+	return Region[rand() % Region->size()];
+}
+
+string getRandomDistrict()
+{
+	string District[] = { "Zhmerinskiy", "Pavlogradskiy", "Kamenskiy", "Rakhiv", "Kosiv", "Berezovsky", "Podolsky" };
+	return District[rand() % 7];
+}
+
+string getRandomCity()
+{
+	string City[] = { "Odessa", "Poltava", "Nikolaev","Kiev","Lviv" ,"Zhytomyr" ,"Chernigiv" };
+	return City[rand() % City->size()];
+}
+
+string getRandomStreet()
+{
+	string Street[] = { "Academic", "Kamanina", "Levanevsky", "Posmitna", "Dobrovolsky", "Derebasivska", "Kanatna" };
+	return Street[rand() % 7];
+}
+
+struct Adress
+{
+	int Postcode;
+	string Country;
+	string Region;
+	string District;
+	string City;
+	string Street;
+	short House;
+	short Apartment;
+};
+
+struct Student
+{
+	char F[56];
+	char I[32];
+	char O[32];
+	string Sex;
+	char Nationality[25];
+	int Height;
+	int Weight;
+	Date birthday;
+	char Number[13];
+	Adress home_adress;
+	char University[255];
+	int Grade;
+	char Group[8];
+	float Average_mark;
+	char Specialty[50];
+};
+
+void InputInfo(Student stud[], int N)
+{
+	for (int i = 0; i < N; i++)
+	{
+		cout << "\nInput F: ";
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		cin.getline(stud[i].F, sizeof(stud[i].F));
+
+		cout << "\nInput I: ";
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		cin.getline(stud[i].I, sizeof(stud[i].I));
+
+		cout << "\nInput O: ";
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		cin.getline(stud[i].O, sizeof(stud[i].O));
+
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		stud[i].Sex = getRandomSex();
+
+		cout << "\nInput Nationality: ";
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		cin.getline(stud[i].Nationality, sizeof(stud[i].Nationality));
+
+		//Рост
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		stud[i].Height = rand() % 51 + 150;
+
+		//Вес
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		stud[i].Weight = rand() % 120 + 50;
+
+		//День Рождения
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		stud[i].birthday.day = rand() % 31 + 1;
+		stud[i].birthday.month = rand() % 12 + 1;
+		stud[i].birthday.year = rand() % 30 + 1985;
+
+		cout << "\nInput Phone Number: ";
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		cin.getline(stud[i].Number, sizeof(stud[i].Number));
+
+		stud[i].home_adress.Postcode = rand() % 89999 + 10000;
+		stud[i].home_adress.Country = getRandomCountry();
+		stud[i].home_adress.Region = getRandomRegion();
+		stud[i].home_adress.District = getRandomDistrict();
+		stud[i].home_adress.City = getRandomCity();
+		stud[i].home_adress.Street = getRandomStreet();
+		stud[i].home_adress.House = rand() % 100 + 1;
+		stud[i].home_adress.Apartment = rand() % 55 + 1;
+
+		cout << "\nInput University: ";
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		cin.getline(stud[i].University, sizeof(stud[i].University));
+
+		//Курс
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		stud[i].Grade = rand() % 5 + 1;
+
+		cout << "\nInput Your Group: ";
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		cin.getline(stud[i].Group, sizeof(stud[i].Group));
+
+		//Средняя Оценка
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		stud[i].Average_mark = 0.01 * (rand() % 501);
+
+		cout << "\nInput Your Speciality: ";
+		cin.ignore(std::cin.rdbuf()->in_avail());
+		cin.getline(stud[i].Specialty, sizeof(stud[i].Specialty));
+
+		cin.clear();
+	}
+}
+
+void OutputInfo(Student stud[], int N)
+{
+	for (int i = 0; i < N; i++)
+	{
+		cout << endl << "Information about Student :" << endl;
+		cout << "\nFIO: " << stud[i].F << " " << stud[i].I << " " << stud[i].O << endl;
+		cout << "Sex: " << stud[i].Sex << endl;
+		cout << "Nationality: " << stud[i].Nationality << endl;
+		cout << "Height: " << stud[i].Height << endl;
+		cout << "Weight: " << stud[i].Weight << endl;
+		cout << "Phone Number: " << stud[i].Number << endl;
+		cout << "Date of Birth: " << stud[i].birthday.day << "." << stud[i].birthday.month << "." << stud[i].birthday.year << endl;
+		cout << "Home adress: " << stud[i].home_adress.Postcode << ", " << stud[i].home_adress.Country << ", " << stud[i].home_adress.Region << " region, "
+			<< stud[i].home_adress.District << " district, " << stud[i].home_adress.City << ", " << stud[i].home_adress.Street << " street, "
+			<< stud[i].home_adress.House << ", " << stud[i].home_adress.Apartment << endl;
+		cout << "University: " << stud[i].University << endl;
+		cout << "Grade: " << stud[i].Grade << endl;
+		cout << "Group: " << stud[i].Group << endl;
+		cout << "Average mark: " << stud[i].Average_mark << endl;
+		cout << "Speciality: " << stud[i].Specialty << endl;
+	}
+}
+
+void Search(Student stud[], int N)
+{
+	int grade_find = 0;
+	do
+	{
+		cout << "\nInput grade to search for a student: ";
+		cin >> grade_find;
+		for (int i = 0; i < N; i++)
+		{
+			if (stud[i].Grade == grade_find)
+			{
+				cout << endl << "Information about Student :" << endl;
+				cout << "\nFIO: " << stud[i].F << " " << stud[i].I << " " << stud[i].O << endl;
+				cout << "Sex: " << stud[i].Sex << endl;
+				cout << "Nationality: " << stud[i].Nationality << endl;
+				cout << "Height: " << stud[i].Height << endl;
+				cout << "Weight: " << stud[i].Weight << endl;
+				cout << "Date of Birth: " << stud[i].birthday.day << "." << stud[i].birthday.month << "." << stud[i].birthday.year << endl;
+				cout << "Phone Number: " << stud[i].Number << endl;
+				cout << "Home adress: " << stud[i].home_adress.Postcode << ", " << stud[i].home_adress.Country << ", " << stud[i].home_adress.Region << " region, "
+					<< stud[i].home_adress.District << " district, " << stud[i].home_adress.City << ", " << stud[i].home_adress.Street << " street, "
+					<< stud[i].home_adress.House << ", " << stud[i].home_adress.Apartment << endl;
+				cout << "University: " << stud[i].University << endl;
+				cout << "Grade: " << stud[i].Grade << endl;
+				cout << "Group: " << stud[i].Group << endl;
+				cout << "Average mark: " << stud[i].Average_mark << endl;
+				cout << "Speciality: " << stud[i].Specialty << endl;
+			}
+			else
+			{
+				cout << "There are no students on this grade";
+				
+			}
+		}
+	} while (!(grade_find <= 5 && grade_find > 0));
+}
+
+void SortGrade(Student *a, int N)
+{
+	for (int i = N - 1; i >= 0; i--)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (a[j].Average_mark > a[j + 1].Average_mark)
+			{
+				Student tmp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = tmp;
+			}
+		}
+	}
+}
+
+void Free(Student stud[], int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		cout << "";
+	}
+
+}
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	srand(time(NULL));
+	const int N = 3;
+	Student *mas = new Student[N];
+	int selection;
+
+	do
+	{
+		cout << endl;
+		cout << "Введите нужную функцию:" << endl;
+		cout << "1 - Добавление нового студента" << endl;
+		cout << "2 - Вывод на экран массива студентов" << endl;
+		cout << "3 - Поиск студентов по курсу" << endl;
+		cout << "4 - Сортировка по среднему баллу" << endl;
+		cout << "0 - Выход" << endl;
+		cout << "Введите номер функции: ";
+		cin >> selection;
+		switch (selection)
+		{
+		case 1:InputInfo(mas, N); break;
+		case 2:OutputInfo(mas, N); break;
+		case 3:Search(mas, N); break;
+		case 4:SortGrade(mas, N); break;
+		case 0:Free(mas, N); break;
+		default:cout << "Такой функции нет" << endl;
+		}
+
+	} while (selection != 0);
+}
