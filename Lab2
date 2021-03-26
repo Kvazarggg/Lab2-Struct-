@@ -1,6 +1,7 @@
 //ВАРИАНТ 3
 #include <iostream>
 #include <time.h>
+int n = 0;
 
 using namespace std;
 
@@ -78,9 +79,9 @@ struct Student
 	char Specialty[50];
 };
 
-void InputInfo(Student stud[], int N)
+void InputInfo(Student stud[], int b)
 {
-	for (int i = 0; i < N; i++)
+	for (int i = 0  + n; i < b + n; i++)
 	{
 		cout << "\nInput F: ";
 		cin.ignore(std::cin.rdbuf()->in_avail());
@@ -150,11 +151,13 @@ void InputInfo(Student stud[], int N)
 
 		cin.clear();
 	}
+	n += b;
 }
 
-void OutputInfo(Student stud[], int N)
+
+void OutputInfo(Student stud[])
 {
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < n; i++)
 	{
 		cout << endl << "Information about Student :" << endl;
 		cout << "\nFIO: " << stud[i].F << " " << stud[i].I << " " << stud[i].O << endl;
@@ -212,7 +215,7 @@ void Search(Student stud[], int N)
 	} while (!(grade_find <= 5 && grade_find > 0));
 }
 
-void SortGrade(Student *a, int N)
+void SortAverage_mark(Student *a, int N)
 {
 	for (int i = N - 1; i >= 0; i--)
 	{
@@ -241,9 +244,12 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	srand(time(NULL));
-	const int N = 3;
+	const int N = 200;
 	Student *mas = new Student[N];
-	int selection;
+	int function;
+	int b = 2;
+
+	InputInfo(mas, 2);
 
 	do
 	{
@@ -255,16 +261,16 @@ int main()
 		cout << "4 - Сортировка по среднему баллу" << endl;
 		cout << "0 - Выход" << endl;
 		cout << "Введите номер функции: ";
-		cin >> selection;
-		switch (selection)
+		cin >> function;
+		switch (function)
 		{
-		case 1:InputInfo(mas, N); break;
-		case 2:OutputInfo(mas, N); break;
-		case 3:Search(mas, N); break;
-		case 4:SortGrade(mas, N); break;
+		case 1:InputInfo(mas, 1); b++; break;
+		case 2:OutputInfo(mas); break;
+		case 3:Search(mas, n); break;
+		case 4:SortAverage_mark(mas, n); break;
 		case 0:Free(mas, N); break;
 		default:cout << "Такой функции нет" << endl;
 		}
 
-	} while (selection != 0);
+	} while (function != 0);
 }
